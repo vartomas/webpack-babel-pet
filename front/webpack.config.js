@@ -32,5 +32,6 @@ module.exports = {
   devServer: {
     static: './public',
     hot: true
-  }
+  },
+  devtool: false
 };
