@@ -3,7 +3,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import { Box, Button, Dialog, DialogContent, Divider, IconButton, Menu, MenuItem, Paper, TextField, Typography } from '@mui/material';
 import { useProfile } from '../hooks/useProfile';
 
-const Layout = () => {
+const ChatPage = () => {
   const [menuAnchor, setmenuAnchor] = useState<null | HTMLElement>(null);
   const [nameChangeDialogOpen, setNameChangeDialogOpen] = useState(false);
   const menuOpen = Boolean(menuAnchor);
@@ -50,6 +50,7 @@ const Layout = () => {
         <DialogContent sx={{ p: 2, display: 'flex', flexDirection: 'column', alignItems: 'end' }}>
           <TextField
             sx={{ minWidth: 300 }}
+            autoFocus
             autoComplete="off"
             variant="standard"
             label="Name"
@@ -57,7 +58,7 @@ const Layout = () => {
             onKeyPress={(e) => e.key === 'Enter' && submitNameChange()}
           />
 
-          <Button sx={{ mt: 2 }} onClick={submitNameChange}>
+          <Button sx={{ mt: 2 }} onClick={submitNameChange} variant="contained">
             Save
           </Button>
         </DialogContent>
@@ -66,4 +67,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export default ChatPage;

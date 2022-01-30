@@ -1,13 +1,13 @@
 import { CssBaseline } from '@mui/material';
-import Layout from './components/Layout';
 import { ThemeProvider } from '@mui/material/styles';
+import ChatPage from './components/ChatPage';
 import { theme } from './config/theme';
 
 const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Layout />
+      <ChatPage />
     </ThemeProvider>
   );
 };
