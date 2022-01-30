@@ -1,19 +1,19 @@
-import { SubmitHandler, useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
-type Inputs = {
+export type NameFormInputs = {
   name: string;
 };
 
 export const useProfile = () => {
   const [name, setName] = useState('');
-  const nameForm = useForm<Inputs>({
+  const nameForm = useForm<NameFormInputs>({
     defaultValues: {
       name: ''
     }
   });
 
-  const onSubmit: SubmitHandler<Inputs> = ({ name }) => {
+  const onSubmit: SubmitHandler<NameFormInputs> = ({ name }) => {
     setName(name);
     localStorage.setItem('name', name);
   };
