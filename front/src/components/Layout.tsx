@@ -1,7 +1,6 @@
-import { Box, Button, Dialog, DialogContent, Divider, IconButton, Menu, MenuItem, Paper, TextField, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-
 import SettingsIcon from '@mui/icons-material/Settings';
+import { Box, Button, Dialog, DialogContent, Divider, IconButton, Menu, MenuItem, Paper, TextField, Typography } from '@mui/material';
 import { useProfile } from '../hooks/useProfile';
 
 const Layout = () => {
@@ -57,6 +56,7 @@ const Layout = () => {
             {...nameForm.register('name')}
             onKeyPress={(e) => e.key === 'Enter' && submitNameChange()}
           />
+
           <Button sx={{ mt: 2 }} onClick={submitNameChange}>
             Save
           </Button>
