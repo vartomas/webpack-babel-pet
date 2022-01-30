@@ -4,7 +4,7 @@ import { Box, Divider, IconButton, Menu, MenuItem, Paper, Typography } from '@mu
 interface Props {
   name: string;
   menuOpen: boolean;
-  menuAnchor: HTMLElement;
+  menuAnchor: HTMLElement | null;
   onMenuOpen: (event: React.MouseEvent<HTMLElement>) => void;
   onMenuClose: () => void;
   onNameChangeOpen: () => void;
