@@ -5,13 +5,17 @@ import { useChat } from '../hooks/useChat';
 import { useProfile } from '../hooks/useProfile';
 
 const ChatPage = () => {
-  const { name, nameForm, onSubmit } = useProfile();
-  const { menuAnchor, menuOpen, nameChangeDialogOpen, setmenuAnchor, handleMenuOpen, setNameChangeDialogOpen } = useChat();
+  const { name, userId, nameForm, onSubmit } = useProfile();
+  const { users, menuAnchor, menuOpen, nameChangeDialogOpen, setmenuAnchor, handleMenuOpen, setNameChangeDialogOpen } = useChat(
+    name,
+    userId
+  );
 
   return (
     <Box sx={{ display: 'flex', flexDirection: ['column', 'column', 'row'], height: '100vh' }}>
       <ChatSidebar
         name={name}
+        users={users}
         menuAnchor={menuAnchor}
         menuOpen={menuOpen}
         onMenuOpen={handleMenuOpen}

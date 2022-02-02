@@ -1,6 +1,6 @@
 import { SubmitHandler, UseFormReturn } from 'react-hook-form';
 import { Button, Dialog, DialogActions, DialogContent, TextField } from '@mui/material';
-import { NameFormInputs } from '../hooks/useProfile';
+import { NameFormInputs } from '../types';
 
 interface Props {
   open: boolean;
@@ -12,9 +12,7 @@ interface Props {
 const NameChangeDialog: React.FC<Props> = ({ open, nameForm, onClose, onSubmit }) => {
   const submitNameChange = () => {
     nameForm.handleSubmit(onSubmit)();
-    if (nameForm.formState.isValid) {
-      onClose();
-    }
+    onClose();
   };
 
   return (
