@@ -33,6 +33,10 @@ export const useChat = (name: string, userId: string) => {
     }
   }, [name, userId, firstTime.current]);
 
+  const nameChangeEmit = (name: string) => {
+    socket.emit('name:change', { name, userId });
+  };
+
   return {
     users: users.filter((x) => x.userId !== userId),
     menuAnchor,
@@ -40,6 +44,7 @@ export const useChat = (name: string, userId: string) => {
     nameChangeDialogOpen,
     setmenuAnchor,
     handleMenuOpen,
-    setNameChangeDialogOpen
+    setNameChangeDialogOpen,
+    nameChangeEmit
   };
 };

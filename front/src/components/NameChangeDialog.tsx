@@ -7,12 +7,14 @@ interface Props {
   nameForm: UseFormReturn<NameFormInputs, object>;
   onClose: () => void;
   onSubmit: SubmitHandler<NameFormInputs>;
+  onNameChange: (name: string) => void;
 }
 
-const NameChangeDialog: React.FC<Props> = ({ open, nameForm, onClose, onSubmit }) => {
+const NameChangeDialog: React.FC<Props> = ({ open, nameForm, onClose, onSubmit, onNameChange }) => {
   const submitNameChange = () => {
     nameForm.handleSubmit(onSubmit)();
     onClose();
+    onNameChange(nameForm.getValues().name);
   };
 
   return (
