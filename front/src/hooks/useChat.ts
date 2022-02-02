@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { io } from 'socket.io-client';
-import { v4 as uuidv4 } from 'uuid';
 import { User } from '../types';
 
 const socket = io('http://localhost:5000');
