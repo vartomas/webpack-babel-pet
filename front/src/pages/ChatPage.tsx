@@ -1,4 +1,5 @@
 import { Box } from '@mui/material';
+import ChatBox from '../components/ChatBox';
 import ChatSidebar from '../components/ChatSidebar';
 import NameChangeDialog from '../components/NameChangeDialog';
 import { useChat } from '../hooks/useChat';
@@ -21,7 +22,7 @@ const ChatPage = () => {
         onNameChangeOpen={() => setNameChangeDialogOpen(true)}
       />
 
-      <Box sx={{ flex: 1, height: 1 }}></Box>
+      <ChatBox />
 
       <NameChangeDialog
         open={nameChangeDialogOpen}
