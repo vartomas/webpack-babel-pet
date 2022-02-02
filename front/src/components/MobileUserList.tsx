@@ -34,7 +34,7 @@ const MobileUserList: React.FC<Props> = ({ users, open, onClose }) => (
         <CloseIcon />
       </IconButton>
     </Paper>
-    <Divider />
+
     <Box sx={{ pt: '50px' }}>
       {users.map((x) => (
         <Box key={x.userId}>
@@ -45,6 +45,7 @@ const MobileUserList: React.FC<Props> = ({ users, open, onClose }) => (
           <Divider />
         </Box>
       ))}
+
       {!users.length && (
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', p: 1 }}>
           <Typography variant="subtitle2">No users connected</Typography>
