@@ -15,6 +15,7 @@ const NameChangeDialog: React.FC<Props> = ({ open, nameForm, onClose, onSubmit, 
     nameForm.handleSubmit(onSubmit)();
     onClose();
     onNameChange(nameForm.getValues().name);
+    nameForm.reset();
   };
 
   return (
