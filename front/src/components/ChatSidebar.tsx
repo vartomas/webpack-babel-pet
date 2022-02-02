@@ -1,3 +1,4 @@
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { Box, Divider, IconButton, Menu, MenuItem, Paper, Typography } from '@mui/material';
 import { User } from '../types';
@@ -31,9 +32,31 @@ const ChatSidebar: React.FC<Props> = ({ name, users, menuOpen, menuAnchor, onMen
 
       <Divider />
 
-      {users.map((x) => (
-        <Typography key={x.userId}>{x.name}</Typography>
-      ))}
+      <Box
+        sx={{
+          py: 0.5,
+          height: 'calc(100vh - 51px)',
+          overflowY: 'scroll',
+          '&::-webkit-scrollbar': {
+            width: '0.4em'
+          },
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: 'grey.700'
+          }
+        }}
+      >
+        {users.map((x) => (
+          <Box sx={{ display: 'flex', alignItems: 'center', py: 0.5, cursor: 'default', '&:hover': { backgroundColor: 'grey.800' } }}>
+            <AccountCircleIcon fontSize="small" sx={{ mr: 1, ml: 2 }} />
+            <Typography key={x.userId}>{x.name}</Typography>
+          </Box>
+        ))}
+        {!users.length && (
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', p: 1 }}>
+            <Typography variant="subtitle2">No users connected</Typography>
+          </Box>
+        )}
+      </Box>
     </Paper>
   );
 };
