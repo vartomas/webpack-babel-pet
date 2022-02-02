@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
+import { useMutation } from 'react-query';
+import axios from 'axios';
 import { io } from 'socket.io-client';
 import { User } from '../types';
 
@@ -10,6 +12,9 @@ export const useChat = (name: string, userId: string) => {
   const [users, setUsers] = useState<User[]>([]);
   const menuOpen = Boolean(menuAnchor);
   const firstTime = useRef(true);
+  const postMessageApi = useMutation((message) => {
+    return axios.post('http://localhost:5000/message/', message);
+  });
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setmenuAnchor(event.currentTarget);
@@ -37,6 +42,11 @@ export const useChat = (name: string, userId: string) => {
     socket.emit('name:change', { name, userId });
   };
 
+  const postMessage = (message: string) => {
+    // @ts-expect-error
+    postMessageApi.mutate({ body: message, date: new Date(), socketId: socket.id, username: name, userId });
+  };
+
   return {
     users: users.filter((x) => x.userId !== userId),
     menuAnchor,
@@ -45,6 +55,7 @@ export const useChat = (name: string, userId: string) => {
     setmenuAnchor,
     handleMenuOpen,
     setNameChangeDialogOpen,
-    nameChangeEmit
+    nameChangeEmit,
+    postMessage
   };
 };

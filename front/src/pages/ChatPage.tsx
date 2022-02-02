@@ -7,8 +7,17 @@ import { useProfile } from '../hooks/useProfile';
 
 const ChatPage = () => {
   const { name, userId, nameForm, onSubmit } = useProfile();
-  const { users, menuAnchor, menuOpen, nameChangeDialogOpen, setmenuAnchor, handleMenuOpen, setNameChangeDialogOpen, nameChangeEmit } =
-    useChat(name, userId);
+  const {
+    users,
+    menuAnchor,
+    menuOpen,
+    nameChangeDialogOpen,
+    setmenuAnchor,
+    handleMenuOpen,
+    setNameChangeDialogOpen,
+    nameChangeEmit,
+    postMessage
+  } = useChat(name, userId);
 
   return (
     <Box sx={{ display: 'flex', flexDirection: ['column', 'column', 'row'], height: '100vh' }}>
@@ -22,7 +31,7 @@ const ChatPage = () => {
         onNameChangeOpen={() => setNameChangeDialogOpen(true)}
       />
 
-      <ChatBox />
+      <ChatBox postMessage={postMessage} />
 
       <NameChangeDialog
         open={nameChangeDialogOpen}
