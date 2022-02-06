@@ -1,15 +1,17 @@
 import { Box } from '@mui/material';
+import { Message } from '../types';
 import ChatInput from './ChatInput';
 import ChatMessages from './ChatMessages';
 
 interface Props {
+  messages: Message[];
   postMessage: (message: string) => void;
 }
 
-const ChatBox: React.FC<Props> = ({ postMessage }) => {
+const ChatBox: React.FC<Props> = ({ messages, postMessage }) => {
   return (
-    <Box sx={{ width: 1, height: 1, display: 'flex', flexDirection: 'column' }}>
-      <ChatMessages />
+    <Box sx={{ width: 1, height: ['calc(100% - 50px)', 'calc(100% - 50px)', 1], display: 'flex', flexDirection: 'column' }}>
+      <ChatMessages messages={messages} />
       <ChatInput postMessage={postMessage} />
     </Box>
   );

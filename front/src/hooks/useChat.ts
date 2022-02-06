@@ -1,24 +1,35 @@
 import { useEffect, useRef, useState } from 'react';
 import { useMutation } from 'react-query';
-import axios from 'axios';
-import { io } from 'socket.io-client';
-import { User } from '../types';
-
-const socket = io('http://localhost:5000');
+import { AxiosError, AxiosResponse } from 'axios';
+import { getMessages, sendMessage } from '../api/api';
+import { socket } from '../api/socket';
+import { Message, PostMessage, User } from '../types';
 
 export const useChat = (name: string, userId: string) => {
   const [menuAnchor, setmenuAnchor] = useState<null | HTMLElement>(null);
   const [nameChangeDialogOpen, setNameChangeDialogOpen] = useState(false);
   const [users, setUsers] = useState<User[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const menuOpen = Boolean(menuAnchor);
+
   const firstTime = useRef(true);
-  const postMessageApi = useMutation((message) => {
-    return axios.post('http://localhost:5000/message/', message);
+
+  const postMessageApi = useMutation<AxiosResponse, AxiosError, PostMessage>((message) => {
+    return sendMessage(message);
   });
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setmenuAnchor(event.currentTarget);
   };
+
+  const callMessages = async () => {
+    const response = await getMessages();
+    setMessages(response.data);
+  };
+
+  useEffect(() => {
+    callMessages();
+  }, []);
 
   useEffect(() => {
     if (nameChangeDialogOpen) {
@@ -31,7 +42,9 @@ export const useChat = (name: string, userId: string) => {
       socket.on('connect', () => {
         socket.emit('user:connect', { name, userId });
         socket.on('user:list', (users) => setUsers(users));
-        socket.on('message:new', (message) => console.log(message));
+        socket.on('message:new', (message) => {
+          setMessages((prev) => [message, ...prev]);
+        });
       });
 
       firstTime.current = false;
@@ -43,12 +56,12 @@ export const useChat = (name: string, userId: string) => {
   };
 
   const postMessage = (message: string) => {
-    // @ts-expect-error
     postMessageApi.mutate({ body: message, date: new Date(), socketId: socket.id, username: name, userId });
   };
 
   return {
     users: users.filter((x) => x.userId !== userId),
+    messages,
     menuAnchor,
     menuOpen,
     nameChangeDialogOpen,

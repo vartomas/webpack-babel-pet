@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Backdrop, Box, CircularProgress } from '@mui/material';
 import ChatBox from '../components/ChatBox';
 import ChatSidebar from '../components/ChatSidebar';
 import NameChangeDialog from '../components/NameChangeDialog';
@@ -9,6 +9,7 @@ const ChatPage = () => {
   const { name, userId, nameForm, onSubmit } = useProfile();
   const {
     users,
+    messages,
     menuAnchor,
     menuOpen,
     nameChangeDialogOpen,
@@ -31,7 +32,7 @@ const ChatPage = () => {
         onNameChangeOpen={() => setNameChangeDialogOpen(true)}
       />
 
-      <ChatBox postMessage={postMessage} />
+      <ChatBox messages={messages} postMessage={postMessage} />
 
       <NameChangeDialog
         open={nameChangeDialogOpen}
