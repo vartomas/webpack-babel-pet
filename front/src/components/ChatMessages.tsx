@@ -4,9 +4,10 @@ import { Message } from '../types';
 
 interface Props {
   messages: Message[];
+  loadMoreMessages: () => void;
 }
 
-const ChatMessages: React.FC<Props> = ({ messages }) => {
+const ChatMessages: React.FC<Props> = ({ messages, loadMoreMessages }) => {
   const userId = localStorage.getItem('userId');
 
   return (
@@ -36,6 +37,20 @@ const ChatMessages: React.FC<Props> = ({ messages }) => {
           <Typography>{x.body}</Typography>
         </Paper>
       ))}
+      <Typography
+        variant="caption"
+        sx={{
+          m: 2,
+          cursor: 'pointer',
+          alignSelf: 'end',
+          '&:hover': {
+            textDecoration: 'underline'
+          }
+        }}
+        onClick={loadMoreMessages}
+      >
+        Load older messages
+      </Typography>
     </Box>
   );
 };

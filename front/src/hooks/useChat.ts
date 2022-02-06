@@ -59,6 +59,11 @@ export const useChat = (name: string, userId: string) => {
     postMessageApi.mutate({ body: message, date: new Date(), socketId: socket.id, username: name, userId });
   };
 
+  const loadMoreMessages = async () => {
+    const response = await getMessages(messages.length);
+    setMessages((prev) => [...prev, ...response.data]);
+  };
+
   return {
     users: users.filter((x) => x.userId !== userId),
     messages,
@@ -69,6 +74,7 @@ export const useChat = (name: string, userId: string) => {
     handleMenuOpen,
     setNameChangeDialogOpen,
     nameChangeEmit,
-    postMessage
+    postMessage,
+    loadMoreMessages
   };
 };

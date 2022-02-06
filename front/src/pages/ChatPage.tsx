@@ -17,7 +17,8 @@ const ChatPage = () => {
     handleMenuOpen,
     setNameChangeDialogOpen,
     nameChangeEmit,
-    postMessage
+    postMessage,
+    loadMoreMessages
   } = useChat(name, userId);
 
   return (
@@ -32,7 +33,7 @@ const ChatPage = () => {
         onNameChangeOpen={() => setNameChangeDialogOpen(true)}
       />
 
-      <ChatBox messages={messages} postMessage={postMessage} />
+      <ChatBox messages={messages} postMessage={postMessage} loadMoreMessages={loadMoreMessages} />
 
       <NameChangeDialog
         open={nameChangeDialogOpen}
