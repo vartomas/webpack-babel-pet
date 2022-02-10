@@ -1,13 +1,15 @@
+import * as React from 'react';
 import { Box, Paper, Typography } from '@mui/material';
 import { format } from 'date-fns';
 import { Message } from '../types';
 
 interface Props {
   messages: Message[];
+  messagesBottomRef: React.RefObject<HTMLDivElement>;
   loadMoreMessages: () => void;
 }
 
-const ChatMessages: React.FC<Props> = ({ messages, loadMoreMessages }) => {
+const ChatMessages: React.FC<Props> = ({ messages, messagesBottomRef, loadMoreMessages }) => {
   const userId = localStorage.getItem('userId');
 
   return (
@@ -26,6 +28,7 @@ const ChatMessages: React.FC<Props> = ({ messages, loadMoreMessages }) => {
         }
       }}
     >
+      <Box ref={messagesBottomRef} />
       {messages.map((x) => (
         <Paper key={x._id} sx={{ p: 2, mx: 1, my: 0.5, maxWidth: 2 / 3, alignSelf: userId === x.userId ? 'end' : 'start' }}>
           <Box sx={{ display: 'flex', alignItems: 'baseline', mb: 1 }}>
@@ -34,7 +37,7 @@ const ChatMessages: React.FC<Props> = ({ messages, loadMoreMessages }) => {
               {format(new Date(x.date), 'dd-MM-yyyy')}
             </Typography>
           </Box>
-          <Typography>{x.body}</Typography>
+          <Typography sx={{ wordBreak: 'break-word' }}>{x.body}</Typography>
         </Paper>
       ))}
       <Typography

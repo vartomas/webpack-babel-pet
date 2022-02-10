@@ -13,6 +13,7 @@ const ChatPage = () => {
     menuAnchor,
     menuOpen,
     nameChangeDialogOpen,
+    messagesBottomRef,
     setmenuAnchor,
     handleMenuOpen,
     setNameChangeDialogOpen,
@@ -33,7 +34,7 @@ const ChatPage = () => {
         onNameChangeOpen={() => setNameChangeDialogOpen(true)}
       />
 
-      <ChatBox messages={messages} postMessage={postMessage} loadMoreMessages={loadMoreMessages} />
+      <ChatBox messages={messages} messagesBottomRef={messagesBottomRef} postMessage={postMessage} loadMoreMessages={loadMoreMessages} />
 
       <NameChangeDialog
         open={nameChangeDialogOpen}

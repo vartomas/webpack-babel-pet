@@ -10,6 +10,7 @@ export const useChat = (name: string, userId: string) => {
   const [nameChangeDialogOpen, setNameChangeDialogOpen] = useState(false);
   const [users, setUsers] = useState<User[]>([]);
   const [messages, setMessages] = useState<Message[]>([]);
+  const messagesBottomRef = useRef<HTMLDivElement>(null);
   const menuOpen = Boolean(menuAnchor);
 
   const firstTime = useRef(true);
@@ -44,6 +45,7 @@ export const useChat = (name: string, userId: string) => {
         socket.on('user:list', (users) => setUsers(users));
         socket.on('message:new', (message) => {
           setMessages((prev) => [message, ...prev]);
+          messagesBottomRef.current?.scrollIntoView({ behavior: 'smooth' });
         });
       });
 
@@ -70,6 +72,7 @@ export const useChat = (name: string, userId: string) => {
     menuAnchor,
     menuOpen,
     nameChangeDialogOpen,
+    messagesBottomRef,
     setmenuAnchor,
     handleMenuOpen,
     setNameChangeDialogOpen,
