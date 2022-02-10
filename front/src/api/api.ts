@@ -1,8 +1,10 @@
 import axios, { AxiosResponse } from 'axios';
 import { Message, PostMessage } from '../types';
 
+export const baseUrl = 'http://localhost:5000';
+
 const client = axios.create({
-  baseURL: 'http://localhost:5000/'
+  baseURL: baseUrl
 });
 
 export const sendMessage = (message: PostMessage) => client.post('/message', message);
