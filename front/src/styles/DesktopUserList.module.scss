@@ -1,0 +1,29 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+.container {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  height: calc(100vh - 51px);
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 0.4em;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: v.$grey-color;
+  }
+}
+
+.usersContainer {
+  display: flex;
+  align-items: center;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.emptyContainer {
+  @include m.flex-center;
+  padding: 8px;
+}
