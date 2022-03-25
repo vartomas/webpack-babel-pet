@@ -24,3 +24,10 @@
     background-color: v.$dark-color;
   }
 }
+
+@media only screen and (max-width: 800px) {
+  .container {
+    left: unset;
+    right: 15px;
+  }
+}
