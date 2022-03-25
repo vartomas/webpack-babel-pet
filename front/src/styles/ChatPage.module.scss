@@ -1,6 +1,7 @@
 @use 'variables' as v;
 
 .container {
+  position: relative;
   display: flex;
   height: 100vh;
   background-color: v.$black-color;

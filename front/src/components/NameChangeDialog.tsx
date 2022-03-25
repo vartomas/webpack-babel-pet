@@ -1,6 +1,7 @@
+import { useEffect, useRef } from 'react';
 import { SubmitHandler, UseFormReturn } from 'react-hook-form';
-import { Button, Dialog, DialogActions, DialogContent, TextField } from '@mui/material';
 import { NameFormInputs } from '../types';
+import styles from '../styles/NameChangeDialog.module.scss';
 
 interface Props {
   open: boolean;
@@ -18,27 +19,37 @@ const NameChangeDialog: React.FC<Props> = ({ open, nameForm, onClose, onSubmit, 
     nameForm.reset();
   };
 
+  const container = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (open && container.current && !container.current.contains(event.target as Node)) {
+        onClose();
+      }
+    };
+
+    document.addEventListener('click', handleOutsideClick);
+    return () => document.removeEventListener('click', handleOutsideClick);
+  }, [container, open]);
+
   return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogContent sx={{ display: 'flex', flexDirection: 'column' }}>
-        <TextField
-          sx={{ minWidth: 200 }}
+    <div className={styles.container} style={{ display: open ? 'block' : 'none' }}>
+      <div ref={container} className={styles.dialog}>
+        <input
+          type="text"
+          className={styles.input}
+          placeholder="Name"
           autoComplete="off"
-          spellCheck="false"
-          variant="standard"
-          label="Enter your name"
-          {...nameForm.register('name', { required: true, minLength: 3, maxLength: 12 })}
+          {...nameForm.register('name')}
           onKeyPress={(e) => e.key === 'Enter' && submitNameChange()}
-          error={!!nameForm.formState.errors.name}
-          helperText={nameForm.formState.errors.name ? 'Between 3 and 12 characters please' : ''}
         />
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={submitNameChange} variant="contained">
-          Save
-        </Button>
-      </DialogActions>
-    </Dialog>
+        <div className={styles.dialogActions}>
+          <button className={styles.button} onClick={submitNameChange}>
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };
 
