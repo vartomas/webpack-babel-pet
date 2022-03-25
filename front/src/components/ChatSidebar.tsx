@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react';
-import SettingsIcon from '@mui/icons-material/Settings';
-import { Box, Divider, IconButton, Menu, MenuItem, Paper, Typography } from '@mui/material';
+import { FiSettings } from 'react-icons/fi';
 import { User } from '../types';
 import DesktopUserList from './DesktopUserList';
+import Menu from './Menu';
 import MobileUserList from './MobileUserList';
+import styles from '../styles/ChatSidebar.module.scss';
 
 interface Props {
   name: string;
   users: User[];
   menuOpen: boolean;
-  menuAnchor: HTMLElement | null;
-  onMenuOpen: (event: React.MouseEvent<HTMLElement>) => void;
+  onMenuOpen: () => void;
   onMenuClose: () => void;
   onNameChangeOpen: () => void;
 }
 
-const ChatSidebar: React.FC<Props> = ({ name, users, menuOpen, menuAnchor, onMenuOpen, onMenuClose, onNameChangeOpen }) => {
+const ChatSidebar: React.FC<Props> = ({ name, users, menuOpen, onMenuOpen, onMenuClose, onNameChangeOpen }) => {
   const [width, setWidth] = useState(0);
   const [mobileUsersListOpen, setMobileUsersListOpen] = useState(false);
 
@@ -27,37 +27,26 @@ const ChatSidebar: React.FC<Props> = ({ name, users, menuOpen, menuAnchor, onMen
   }, []);
 
   return (
-    <Paper sx={{ width: [1, 1, 250], height: [50, 50, 1] }}>
-      <Box sx={{ px: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 50 }}>
-        <Typography>{name}</Typography>
+    <div className={styles.container}>
+      <div className={styles.nameContainer}>
+        <p>{name}</p>
 
-        <IconButton size="small" onClick={onMenuOpen}>
-          <SettingsIcon fontSize="small" />
-        </IconButton>
+        <div className={styles.iconButtonContainer} onClick={onMenuOpen}>
+          <FiSettings className={styles.icon} />
+          <Menu
+            open={menuOpen}
+            onMenuClose={onMenuClose}
+            onChangeName={onNameChangeOpen}
+            onUserListOpen={() => setMobileUsersListOpen(true)}
+          />
+        </div>
+      </div>
 
-        <Menu anchorEl={menuAnchor} open={menuOpen} onClose={onMenuClose}>
-          <MenuItem key="name" onClick={onNameChangeOpen}>
-            Change name
-          </MenuItem>
-          {width < 900 && (
-            <MenuItem
-              key="users"
-              onClick={() => {
-                onMenuClose();
-                setMobileUsersListOpen(true);
-              }}
-            >
-              Users
-            </MenuItem>
-          )}
-        </Menu>
-      </Box>
-
-      <Divider />
+      <div className={styles.divider} />
 
       {width > 899 && <DesktopUserList users={users} />}
       {width < 900 && <MobileUserList users={users} open={mobileUsersListOpen} onClose={() => setMobileUsersListOpen(false)} />}
-    </Paper>
+    </div>
   );
 };
 

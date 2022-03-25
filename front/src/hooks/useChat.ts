@@ -6,12 +6,11 @@ import { socket } from '../api/socket';
 import { Message, PostMessage, User } from '../types';
 
 export const useChat = (name: string, userId: string) => {
-  const [menuAnchor, setmenuAnchor] = useState<null | HTMLElement>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [nameChangeDialogOpen, setNameChangeDialogOpen] = useState(false);
   const [users, setUsers] = useState<User[]>([]);
   const [messages, setMessages] = useState<Message[]>([]);
   const messagesBottomRef = useRef<HTMLDivElement>(null);
-  const menuOpen = Boolean(menuAnchor);
 
   const firstTime = useRef(true);
 
@@ -19,8 +18,12 @@ export const useChat = (name: string, userId: string) => {
     return sendMessage(message);
   });
 
-  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setmenuAnchor(event.currentTarget);
+  const handleMenuOpen = () => {
+    setMenuOpen(true);
+  };
+
+  const handleMenuClose = () => {
+    setMenuOpen(false);
   };
 
   const callMessages = async () => {
@@ -31,12 +34,6 @@ export const useChat = (name: string, userId: string) => {
   useEffect(() => {
     callMessages();
   }, []);
-
-  useEffect(() => {
-    if (nameChangeDialogOpen) {
-      setmenuAnchor(null);
-    }
-  }, [nameChangeDialogOpen]);
 
   useEffect(() => {
     if (name && userId && firstTime.current) {
@@ -69,12 +66,11 @@ export const useChat = (name: string, userId: string) => {
   return {
     users: users.filter((x) => x.userId !== userId),
     messages,
-    menuAnchor,
     menuOpen,
     nameChangeDialogOpen,
     messagesBottomRef,
-    setmenuAnchor,
     handleMenuOpen,
+    handleMenuClose,
     setNameChangeDialogOpen,
     nameChangeEmit,
     postMessage,

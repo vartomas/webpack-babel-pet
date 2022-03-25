@@ -10,12 +10,11 @@ const ChatPage = () => {
   const {
     users,
     messages,
-    menuAnchor,
     menuOpen,
     nameChangeDialogOpen,
     messagesBottomRef,
-    setmenuAnchor,
     handleMenuOpen,
+    handleMenuClose,
     setNameChangeDialogOpen,
     nameChangeEmit,
     postMessage,
@@ -27,10 +26,9 @@ const ChatPage = () => {
       <ChatSidebar
         name={name}
         users={users}
-        menuAnchor={menuAnchor}
         menuOpen={menuOpen}
         onMenuOpen={handleMenuOpen}
-        onMenuClose={() => setmenuAnchor(null)}
+        onMenuClose={handleMenuClose}
         onNameChangeOpen={() => setNameChangeDialogOpen(true)}
       />
 

@@ -1,0 +1,37 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+.container {
+  @include m.paper;
+  width: 250px;
+  height: 100%;
+  color: v.$light-color;
+}
+
+.nameContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+}
+
+.divider {
+  @include m.divider;
+}
+
+.iconButtonContainer {
+  @include m.flex-center;
+  @include m.icon-button-container;
+  position: relative;
+}
+
+.icon {
+  @include m.icon;
+}
+
+@media only screen and (max-width: 800px) {
+  .container {
+    width: 100%;
+    height: 50px;
+  }
+}
