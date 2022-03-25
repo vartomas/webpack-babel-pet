@@ -1,0 +1,61 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+.container {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  z-index: 999;
+  transition: top 0.2s ease-in-out;
+  overflow-y: scroll;
+  background-color: v.$dark-color;
+
+  &::-webkit-scrollbar {
+    width: 0.4em;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: v.$grey-color;
+  }
+}
+
+.userList {
+  padding-top: 50px;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.emptyUserList {
+  @include m.flex-center;
+  padding: 8px;
+}
+
+.headerContainer {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  padding-left: 8px;
+  padding-right: 8px;
+  width: 100%;
+}
+
+.iconButtonContainer {
+  @include m.flex-center;
+  @include m.icon-button-container;
+}
+
+.icon {
+  @include m.icon;
+}
+
+.divider {
+  @include m.divider;
+}
