@@ -1,9 +1,9 @@
-import { Backdrop, Box, CircularProgress } from '@mui/material';
 import ChatBox from '../components/ChatBox';
 import ChatSidebar from '../components/ChatSidebar';
 import NameChangeDialog from '../components/NameChangeDialog';
 import { useChat } from '../hooks/useChat';
 import { useProfile } from '../hooks/useProfile';
+import styles from '../styles/ChatPage.module.scss';
 
 const ChatPage = () => {
   const { name, userId, nameForm, onSubmit } = useProfile();
@@ -23,7 +23,7 @@ const ChatPage = () => {
   } = useChat(name, userId);
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: ['column', 'column', 'row'], height: '100vh' }}>
+    <div className={styles.container}>
       <ChatSidebar
         name={name}
         users={users}
@@ -43,7 +43,7 @@ const ChatPage = () => {
         onSubmit={onSubmit}
         onNameChange={nameChangeEmit}
       />
-    </Box>
+    </div>
   );
 };
 

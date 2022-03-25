@@ -1,0 +1,13 @@
+@use 'variables' as v;
+
+.container {
+  display: flex;
+  height: 100vh;
+  background-color: v.$black-color;
+}
+
+@media only screen and (max-width: 800px) {
+  .container {
+    flex-direction: column;
+  }
+}
