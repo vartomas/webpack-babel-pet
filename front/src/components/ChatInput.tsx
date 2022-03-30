@@ -1,6 +1,7 @@
+import { useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import SendIcon from '@mui/icons-material/Send';
-import { Box, IconButton, TextField } from '@mui/material';
+import { AiOutlineSend } from 'react-icons/ai';
+import styles from '../styles/ChatInput.module.scss';
 
 interface Props {
   postMessage: (message: string) => void;
@@ -17,26 +18,35 @@ const ChatInput: React.FC<Props> = ({ postMessage }) => {
     }
   });
 
+  const input = useRef<HTMLTextAreaElement | null>(null);
+
   const onSubmit = (data: MessageForm) => {
     postMessage(data.message);
-    messageForm.reset();
+    messageForm.setValue('message', '');
   };
 
+  const { ref, ...rest } = messageForm.register('message');
+
   return (
-    <Box sx={{ p: 1, display: 'flex', alignItems: 'center' }}>
-      <TextField
-        fullWidth
+    <div className={styles.container}>
+      <textarea
+        className={styles.messageInput}
         autoFocus
-        label="Message"
+        placeholder="Message"
         spellCheck="false"
         autoComplete="off"
         onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && messageForm.handleSubmit(onSubmit)()}
-        {...messageForm.register('message', { required: true })}
+        {...rest}
+        name="message"
+        ref={(e) => {
+          ref(e);
+          input.current = e;
+        }}
       />
-      <IconButton size="large" sx={{ ml: 1 }} onClick={() => messageForm.handleSubmit(onSubmit)()}>
-        <SendIcon />
-      </IconButton>
-    </Box>
+      <div className={styles.sendButton} onClick={() => messageForm.handleSubmit(onSubmit)()}>
+        <AiOutlineSend className={styles.icon} />
+      </div>
+    </div>
   );
 };
 

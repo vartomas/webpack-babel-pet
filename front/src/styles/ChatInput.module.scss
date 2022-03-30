@@ -1,0 +1,38 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+.container {
+  padding: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.messageInput {
+  font-family: inherit;
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid v.$blue-color;
+  outline: 0;
+  font-size: 1.3rem;
+  color: v.$light-color;
+  padding: 8px;
+  background: transparent;
+  transition: border-color 0.2s;
+  resize: none;
+  background-color: v.$dark-color;
+  transition: border-bottom 0.2s ease;
+
+  &:focus {
+    border-bottom: 2px solid v.$dark-blue-color;
+  }
+}
+
+.sendButton {
+  @include m.double-size-icon-button-container;
+  @include m.flex-center;
+  margin-left: 8px;
+}
+
+.icon {
+  @include m.icon;
+}

@@ -30,7 +30,11 @@
   color: v.$light-color;
   padding: 7px 0;
   background: transparent;
-  transition: border-color 0.2s;
+  transition: border-bottom 0.2s ease;
+
+  &:focus {
+    border-bottom: 2px solid v.$dark-blue-color;
+  }
 }
 
 .dialogActions {
