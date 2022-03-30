@@ -1,7 +1,7 @@
-import { Box } from '@mui/material';
 import { Message } from '../types';
 import ChatInput from './ChatInput';
 import ChatMessages from './ChatMessages';
+import styles from '../styles/ChatBox.module.scss';
 
 interface Props {
   messages: Message[];
@@ -12,10 +12,10 @@ interface Props {
 
 const ChatBox: React.FC<Props> = ({ messages, messagesBottomRef, postMessage, loadMoreMessages }) => {
   return (
-    <Box sx={{ width: 1, height: ['calc(100% - 50px)', 'calc(100% - 50px)', 1], display: 'flex', flexDirection: 'column' }}>
+    <div className={styles.container}>
       <ChatMessages messages={messages} messagesBottomRef={messagesBottomRef} loadMoreMessages={loadMoreMessages} />
       <ChatInput postMessage={postMessage} />
-    </Box>
+    </div>
   );
 };
 
