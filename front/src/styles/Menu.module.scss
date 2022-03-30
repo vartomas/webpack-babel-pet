@@ -25,9 +25,17 @@
   }
 }
 
+.namesListItem {
+  display: none;
+}
+
 @media only screen and (max-width: 800px) {
   .container {
     left: unset;
     right: 15px;
+  }
+
+  .namesListItem {
+    display: block;
   }
 }

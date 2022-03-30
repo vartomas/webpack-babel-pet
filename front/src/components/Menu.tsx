@@ -35,7 +35,7 @@ const Menu: React.FC<Props> = ({ open, onMenuClose, onChangeName, onUserListOpen
           Change name
         </li>
         <li
-          className={styles.listItem}
+          className={`${styles.listItem} ${styles.namesListItem}`}
           onClick={() => {
             onMenuClose();
             onUserListOpen();
