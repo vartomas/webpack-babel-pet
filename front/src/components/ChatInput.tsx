@@ -44,7 +44,7 @@ const ChatInput: React.FC<Props> = ({ postMessage }) => {
           input.current = e;
         }}
       />
-      <div role="inputBtn" className={styles.sendButton} onClick={() => messageForm.handleSubmit(onSubmit)()}>
+      <div role="inputBtn" className={styles.sendButton} onClick={messageForm.handleSubmit(onSubmit)}>
         <AiOutlineSend className={styles.icon} />
       </div>
     </div>
